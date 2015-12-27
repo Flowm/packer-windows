@@ -64,6 +64,37 @@
           "2"
         ]
       ]
+    },
+    {
+      "type": "qemu",
+      "format":"qcow2",
+      "accelerator": "kvm",
+      "disk_interface":"virtio",
+
+      "boot_wait": "2m",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "boot_wait": "2m",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "6h",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "disk_size": 61440,
+      "floppy_files": [
+        "{{user `autounattend`}}",
+        "./scripts/microsoft-updates.bat",
+        "./scripts/win-updates.ps1",
+        "./scripts/openssh.ps1",
+        "./scripts/oracle-cert.cer",
+        "./drivers/virtio-win-0.1.112/viostor/2k12R2/amd64/*",
+        "./drivers/virtio-win-0.1.112/NetKVM/2k12R2/amd64/*"
+      ],
+      "headless": "true",
+      "qemuargs": [
+        [ "-m", "2048M" ],
+        [ "-smp", "2" ]
+      ]
     }
   ],
   "provisioners": [
